@@ -1,0 +1,15 @@
+{
+  "name": "ProgracaoOrientadaObjeto",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dbbitz/UNIFESP-Progracao-Orientada-Objeto.git",
+  "author": "Daniel Barbosa Rocha <daniel.dr206@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
