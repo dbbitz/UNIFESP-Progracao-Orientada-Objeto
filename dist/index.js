@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const conta_1 = require("./conta");
-const correntista_1 = require("./correntista");
-const joao = new correntista_1.Correntista('João', '123.456.789-00');
-const contaJoao = new conta_1.Conta('123-45', joao);
-contaJoao.credita(100.0);
-console.log(joao);
+const client_1 = require("./client");
+const bike_1 = require("./bike");
+const store_1 = require("./store");
+const bike1 = new bike_1.Bike(1, "Caloi", false, null);
+const bike2 = new bike_1.Bike(2, "Monark", false, null);
+const client1 = new client_1.Client(1, "João", "123.456.789-00", null);
+const client2 = new client_1.Client(2, "Maria", "987.654.321-00", null);
+const store = new store_1.Store([bike1, bike2], [client1, client2]);
+store.showBikes();
