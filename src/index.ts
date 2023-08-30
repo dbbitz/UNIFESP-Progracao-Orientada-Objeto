@@ -1,25 +1,36 @@
-import { Client } from "./client"
-import { Bike } from "./bike"
-import { Store } from "./store"
+import { App } from "./app";
+import { Bike } from "./bike";
+import { Rent } from "./rent";
+import { User } from "./user";
 
-const bike1 = new Bike(1, "Caloi", false, null);
-const bike2 = new Bike(2, "Monark", false, null);
+const today = new Date();
+const tomorrow = new Date()
+tomorrow.setDate(tomorrow.getDate() + 1)
+const twoDaysFromNow = new Date()
+twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2)
+const threeDaysFromNow = new Date()
+threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3)
 
-const client1 = new Client(1, "João", "123.456.789-00", null);
-const client2 = new Client(2, "Maria", "987.654.321-00", null);
+const bike = new Bike(
+    "Bike 1",
+    "Mountain",
+    20,
+    100,
+    10,
+    "Bike 1 description",
+    4,
+    ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.virtualbike.com.br%2Fbicicleta-xks-aro-29-freio-disco-21-marchas.html&psig=AOvVaw28cen-jhvPdxExO0MaDkH0&ust=1693524803773000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCKi1ktXFhYEDFQAAAAAdAAAAABAD"],
+    "bike-1"
+    );
 
-const store = new Store();
+const user = new User("Dan", "daniel@gmail.com", "123456");
+const rent = Rent.create([], bike, user, today, tomorrow);
 
-store.addBike(bike1);
-store.addBike(bike2);
-store.addClient(client1);
-store.addClient(client2);
-
-store.rentABike(client1, bike1, new Date(2021, 8, 1), new Date(2021, 8, 2));
-
-
-store.showBikes();
-store.showClients();
-store.showReserves();
+const app = new App();
+app.registerUser(user);
+app.registerBike(bike);
+app.rentBike(bike.id ? bike.id : '', user.email, today, tomorrow);
+app.returnBike(bike.id ? bike.id : '', user.email, threeDaysFromNow);
+app.show();
 
 

@@ -1,15 +1,13 @@
-import { Client } from "./client";
-
 export class Bike {
-    id: number;
-    model: string;
-    leased: boolean;
-    client: string;
-
-    constructor(id: number, model: string, leased: boolean, client: Client | null) {
-        this.id = id;
-        this.model = model;
-        this.leased = leased;
-        this.client = client?.name || "None";
-    }
+    constructor(
+        public name: string,
+        public type: string,
+        public bodySize: number,
+        public maxLoad: number,
+        public rate: number,
+        public description: string,
+        public ratings: number,
+        public imageUrls: string[],
+        public id?: string
+    ) {}
 }

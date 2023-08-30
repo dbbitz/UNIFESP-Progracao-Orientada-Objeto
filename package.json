@@ -10,6 +10,10 @@
     "dev": "ts-node src/index.ts"
   },
   "devDependencies": {
+    "crypto": "^1.0.1",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@types/node": "^20.5.7"
   }
 }
