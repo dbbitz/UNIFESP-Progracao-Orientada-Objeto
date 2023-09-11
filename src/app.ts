@@ -67,6 +67,21 @@ export class App {
     });
   }
 
+  showUsers() {
+    console.log("Users:");
+    console.log(this.users);
+  }
+
+  showRentals() {
+    console.log("Rents:");
+    console.log(this.rents);
+  }
+
+  showBikes() {
+    console.log("Bikes:");
+    console.log(this.bikes);
+  }
+
   show() {
     console.log("Users:");
     console.log(this.users);
