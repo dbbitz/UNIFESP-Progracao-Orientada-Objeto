@@ -1,4 +1,5 @@
 import { Bike } from "./bike";
+import { Crypt } from "./crypt";
 import { Rent } from "./rent";
 import { User } from "./user";
 import * as crypto from "crypto";
@@ -26,13 +27,16 @@ export class App {
     this.bikes.push(bike);
   }
 
-  registerUser(user: User): void {
+  async registerUser(user: User): Promise<void> {
     for (const rUser of this.users) {
       if (rUser.email === user.email) {
         throw new Error("Duplicate user.");
       }
     }
+    const { email, password } = user;
     user.id = crypto.randomUUID();
+    user.email = email;
+    user.password = await new Crypt(password).encrypt();
     this.users.push(user);
   }
 
@@ -48,7 +52,7 @@ export class App {
 
     if (!user) throw new Error("User not found.");
 
-    const rent = Rent.create(this.rents, bike, user, startDate, endDate);
+    const rent = new Rent(bike, user, startDate, endDate);
     this.rents.push(rent);
     console.log("Rent created successfully.");
     console.log(rent);
@@ -62,10 +66,13 @@ export class App {
     this.rents = this.rents.map((rent) => {
       if (rent.bike.id === bikeId && rent.user.email === userEmail) {
         rent.dateReturned = dateReturned;
+        console.log(rent.dateFrom);
+        console.log(rent.dateReturned);
       }
       return rent;
     });
   }
+
 
   showUsers() {
     console.log("Users:");

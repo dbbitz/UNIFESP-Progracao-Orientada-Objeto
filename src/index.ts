@@ -24,13 +24,14 @@ const bike = new Bike(
     );
 
 const user = new User("Dan", "daniel@gmail.com", "123456");
-const rent = Rent.create([], bike, user, today, tomorrow);
 
 const app = new App();
-app.registerUser(user);
-app.registerBike(bike);
-app.rentBike(bike.id ? bike.id : '', user.email, today, tomorrow);
-app.returnBike(bike.id ? bike.id : '', user.email, threeDaysFromNow);
-app.show();
+try {
+    app.registerUser(user);
+    app.registerBike(bike);
+} catch(error){
+    console.log(error)
+}
+
 
 
