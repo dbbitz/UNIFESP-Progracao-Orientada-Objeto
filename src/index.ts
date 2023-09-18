@@ -2,36 +2,28 @@ import { App } from "./app";
 import { Bike } from "./bike";
 import { Rent } from "./rent";
 import { User } from "./user";
+import * as sinon from 'sinon'
 
-const today = new Date();
-const tomorrow = new Date()
-tomorrow.setDate(tomorrow.getDate() + 1)
-const twoDaysFromNow = new Date()
-twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2)
-const threeDaysFromNow = new Date()
-threeDaysFromNow.setDate(threeDaysFromNow.getDate() + 3)
+async function main() {
+    const clock = sinon.useFakeTimers();
+    const app = new App()
+    const user1 = new User('Dan', 'daniel@gmail.com', '123456')
 
-const bike = new Bike(
-    "Bike 1",
-    "Mountain",
-    20,
-    100,
-    10,
-    "Bike 1 description",
-    4,
-    ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.virtualbike.com.br%2Fbicicleta-xks-aro-29-freio-disco-21-marchas.html&psig=AOvVaw28cen-jhvPdxExO0MaDkH0&ust=1693524803773000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCKi1ktXFhYEDFQAAAAAdAAAAABAD"],
-    "bike-1"
-    );
+    await app.registerUser(user1)
+    const bike = new Bike('caloi mountainbike', 'mountain bike',
+        1234, 1234, 100.0, 'My bike', 5, [])
 
-const user = new User("Dan", "daniel@gmail.com", "123456");
-
-const app = new App();
-try {
-    app.registerUser(user);
-    app.registerBike(bike);
-} catch(error){
-    console.log(error)
+    if(!bike.id || !bike) {
+        throw new Error('Bike not found.')
+    }
+    app.registerBike(bike)
+    console.log('Bike disponível: ', bike.available)
+    app.rentBike(bike.id, user1.email)
+    console.log('Bike disponível: ', bike.available)
+    clock.tick(1000 * 60 * 65)
+    console.log(app.returnBike(bike.id, user1.email))
+    console.log('Bike disponível: ', bike.available)
+    
 }
 
-
-
+main()

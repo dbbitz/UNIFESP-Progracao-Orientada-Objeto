@@ -1,16 +1,13 @@
 import * as bcrypt from 'bcrypt';
 
 export class Crypt {
-    constructor(
-        private data: string,
-        private encrypted?: string
-    ) {}
+    private rounds = 10
 
-    public encrypt(): Promise<string> {
-        return bcrypt.hash(this.data, 10);
+    async encrypt(plain: string): Promise<string> {
+        return await bcrypt.hash(plain, this.rounds)
     }
 
-    decrypt(data: string, encrypted: string): Promise<boolean> {
-        return bcrypt.compare(data, encrypted);
+    async compare(plain: string, encrypted: string): Promise<boolean> {
+        return await bcrypt.compare(plain, encrypted)
     }
 }
